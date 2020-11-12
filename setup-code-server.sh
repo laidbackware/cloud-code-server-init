@@ -44,9 +44,9 @@ curl -fsSL https://code-server.dev/install.sh | sh
 echo "Starting code server"
 systemctl enable --now code-server@$USERNAME
 
-sleep 10
+sleep 5
 
-PASSWORD=cat /home/${USERNAME}/.config/code-server/config.yaml |grep password: |sed s/password://
+PASSWORD=$(cat /home/${USERNAME}/.config/code-server/config.yaml |grep password: |sed s/password://)
 echo -e "\n\n Your password is:$PASSWORD"
 
-echo -e "\nYou URL is: https://$FQDN"
+echo -e "\nYou URL is: https://$FQDN\n"
