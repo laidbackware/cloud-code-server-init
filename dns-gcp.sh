@@ -1,5 +1,12 @@
 #!/bin/bash
 
+set -euo pipefail
+
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
 HOSTNAME=jumpbox
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -15,7 +22,7 @@ FQDN="${HOSTNAME}.${DNS_ZONE}"
 if nslookup $FQDN > /dev/null 2>&1
 then
     echo "DNS record for ${FQDN} already exists. Exiting"
-    echo $FQDN | sed 's/.$//' > giot ${SCRIPT_DIR}/hostname
+    echo $FQDN | sed 's/.$//' > g;iot ${SCRIPT_DIR}/hostname
     exit 1
 fi
 
@@ -30,3 +37,5 @@ echo "\nCreated record: $FQDN = $EXTERNAL_IP"
 echo "Please wait a few minutes for it to propogate"
 
 echo $FQDN | sed 's/.$//' > ${SCRIPT_DIR}/hostname
+
+$SCRIPT_DIR/setup-code-server.sh $FQDN ubuntu
