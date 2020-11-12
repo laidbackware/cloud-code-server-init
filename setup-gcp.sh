@@ -7,6 +7,13 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+# Install jq if it is not already insatlled
+if ! command -v jq &> /dev/null
+then
+    sudo apt update
+    sudo apt install jq
+fi
+
 HOSTNAME=jumpbox
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"

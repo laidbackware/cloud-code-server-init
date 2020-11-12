@@ -7,6 +7,7 @@ Scripts to setup VSCode server with Lets Encrypt TLS on cloud instances
 - Your instance must have an external IP
 - You must have 1 registered DNS zone
 - You must have the Google Cloud SDK installed
+- You must be authenticated with GCP and have your project set
 
 ## GCP Steps
 1. SSH into the instance using the ubuntu user and clone this repo
