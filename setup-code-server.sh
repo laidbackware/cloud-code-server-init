@@ -29,6 +29,13 @@ then
     apt install caddy
 fi
 
+# Install jq if it is not already insatlled
+if ! command -v jq &> /dev/null
+then
+    sudo apt update
+    sudo apt install jq
+fi
+
 # Setup Caddy to proxy FQDN to code-server
 cat >/etc/caddy/Caddyfile <<EOL
 $FQDN
