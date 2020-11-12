@@ -10,8 +10,9 @@ fi
 # Install jq if it is not already insatlled
 if ! command -v jq &> /dev/null
 then
+    echo "\nJQ not installed, installing.\n"
     sudo apt update
-    sudo apt install jq
+    sudo apt install jq -y
 fi
 
 HOSTNAME=jumpbox

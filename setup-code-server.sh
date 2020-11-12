@@ -23,10 +23,11 @@ USERNAME=$2
 # Install caddy if it is not already insatlled
 if ! command -v caddy &> /dev/null
 then
+    echo "\nCaddy not installed, installing.\n"
     echo "deb [trusted=yes] https://apt.fury.io/caddy/ /" \
     | tee -a /etc/apt/sources.list.d/caddy-fury.list
     apt update
-    apt install caddy
+    apt install caddy -y
 fi
 
 # Setup Caddy to proxy FQDN to code-server
