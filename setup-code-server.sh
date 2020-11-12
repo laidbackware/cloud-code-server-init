@@ -23,7 +23,7 @@ USERNAME=$2
 # Install caddy if it is not already insatlled
 if ! command -v caddy &> /dev/null
 then
-    echo "\nCaddy not installed, installing.\n"
+    echo -e "\nCaddy not installed, installing.\n"
     echo "deb [trusted=yes] https://apt.fury.io/caddy/ /" \
     | tee -a /etc/apt/sources.list.d/caddy-fury.list
     apt update
@@ -41,9 +41,12 @@ systemctl reload caddy
 
 curl -fsSL https://code-server.dev/install.sh | sh
 
+echo "Starting code server"
 systemctl enable --now code-server@$USERNAME
 
-PASSWORD=cat /home/${USERNAME}/.config/code-server/config.yaml |grep password: |sed s/password://
-echo "\n\n Your password is:$PASSWORD"
+sleep 10
 
-echo "\nYou URL is: https://$FQDN"
+PASSWORD=cat /home/${USERNAME}/.config/code-server/config.yaml |grep password: |sed s/password://
+echo -e "\n\n Your password is:$PASSWORD"
+
+echo -e "\nYou URL is: https://$FQDN"

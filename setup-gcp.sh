@@ -10,7 +10,7 @@ fi
 # Install jq if it is not already insatlled
 if ! command -v jq &> /dev/null
 then
-    echo "\nJQ not installed, installing.\n"
+    echo -e "\nJQ not installed, installing.\n"
     sudo apt update
     sudo apt install jq -y
 fi
@@ -29,7 +29,7 @@ FQDN="${HOSTNAME}.${DNS_ZONE}"
 
 if nslookup $FQDN > /dev/null 2>&1
 then
-    echo "DNS record for ${FQDN} already exists. Exiting"
+    echo -e "\nDNS record for ${FQDN} already exists. Exiting"
     echo $FQDN | sed 's/.$//' > g;iot ${SCRIPT_DIR}/hostname
     exit 1
 fi
@@ -41,8 +41,8 @@ gcloud dns record-sets transaction add "$EXTERNAL_IP"  --name="${FQDN}" \
 
 gcloud dns record-sets transaction execute --zone=$ZONE_NAME
 
-echo "\nCreated record: $FQDN = $EXTERNAL_IP"
-echo "Please wait a few minutes for it to propogate"
+echo -e "\nCreated record: $FQDN = $EXTERNAL_IP"
+echo -e "Please wait a few minutes for it to propogate"
 
 echo $FQDN | sed 's/.$//' > ${SCRIPT_DIR}/hostname
 
